@@ -23,7 +23,7 @@ void setup ()
 }
 public void setMines()
 {
-  while(mines.size() < 80) {
+  while(mines.size() < 20) {
     int randRow = (int) (Math.random()*20);
     int randCol = (int) (Math.random()*20);
     if(!(mines.contains(buttons[randCol][randRow]))) {mines.add(buttons[randCol][randRow]);}
