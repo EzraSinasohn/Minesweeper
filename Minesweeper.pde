@@ -44,7 +44,7 @@ public boolean isWon()
 public void displayLosingMessage()
 {
   for(int i = 0; i < mines.size(); i++) {
-    mines.get(i).clicked = false;
+    mines.get(i).clicked = true;
     mines.get(i).flagged = false;
   }
 }
