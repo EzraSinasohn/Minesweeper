@@ -99,14 +99,14 @@ public class MSButton
         } else if(countMines(myRow, myCol) > 0) {
           setLabel(countMines(myRow, myCol));
         } else {
-          buttons[myCol-1][myRow-1].mousePressed();
-          buttons[myCol][myRow-1].mousePressed();
-          buttons[myCol+1][myRow-1].mousePressed();
-          buttons[myCol-1][myRow].mousePressed();
-          buttons[myCol+1][myRow].mousePressed();
-          buttons[myCol-1][myRow+1].mousePressed();
-          buttons[myCol][myRow+1].mousePressed();
-          buttons[myCol+1][myRow+1].mousePressed();
+          if(isValid(myRow-1, myCol-1) && !buttons[myCol-1][myRow-1].clicked) {buttons[myCol-1][myRow-1].mousePressed();}
+          if(isValid(myRow-1, myCol) && !buttons[myCol-1][myRow-1].clicked) {buttons[myCol][myRow-1].mousePressed();}
+          if(isValid(myRow-1, myCol+1) && !buttons[myCol-1][myRow-1].clicked) {buttons[myCol+1][myRow-1].mousePressed();}
+          if(isValid(myRow, myCol-1) && !buttons[myCol-1][myRow-1].clicked) {buttons[myCol-1][myRow].mousePressed();}
+          if(isValid(myRow, myCol+1) && !buttons[myCol-1][myRow-1].clicked) {buttons[myCol+1][myRow].mousePressed();}
+          if(isValid(myRow+1, myCol-1) && !buttons[myCol-1][myRow-1].clicked) {buttons[myCol-1][myRow+1].mousePressed();}
+          if(isValid(myRow+1, myCol) && !buttons[myCol-1][myRow-1].clicked) {buttons[myCol][myRow+1].mousePressed();}
+          if(isValid(myRow+1, myCol+1) && !buttons[myCol-1][myRow-1].clicked) {buttons[myCol+1][myRow+1].mousePressed();}
         }
         
     }
