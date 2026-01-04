@@ -96,15 +96,18 @@ public class MSButton
     // called by manager
     public void mousePressed () 
     {
-        clicked = true;
-        if(mouseButton == RIGHT && (!clicked || flagged)) {
+        if(mouseButton == RIGHT && ((!clicked) || flagged)) {
+          clicked = true;
           flagged = !flagged;
           if(!flagged) {clicked = false;}
         } else if(mines.contains(this)) {
+          clicked = true;
           displayLosingMessage();
         } else if(countMines(myRow, myCol) > 0) {
+          clicked = true;
           setLabel(countMines(myRow, myCol));
         } else {
+          clicked = true;
           if(isValid(myRow-1, myCol-1) && !buttons[myCol-1][myRow-1].clicked) {buttons[myCol-1][myRow-1].mousePressed();}
           if(isValid(myRow-1, myCol) && !buttons[myCol][myRow-1].clicked) {buttons[myCol][myRow-1].mousePressed();}
           if(isValid(myRow-1, myCol+1) && !buttons[myCol+1][myRow-1].clicked) {buttons[myCol+1][myRow-1].mousePressed();}
