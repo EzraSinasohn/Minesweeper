@@ -1,5 +1,5 @@
 import de.bezier.guido.*;
-int NUM_ROWS = 20, NUM_COLS = 20, clickedButtons = 0;
+int NUM_ROWS = 20, NUM_COLS = 20, NUM_MINES = 20, clickedButtons = 0;
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> mines = new ArrayList<MSButton>(); //ArrayList of just the minesweeper buttons that are mined
 
@@ -23,9 +23,9 @@ void setup ()
 }
 public void setMines()
 {
-  while(mines.size() < 20) {
-    int randRow = (int) (Math.random()*20);
-    int randCol = (int) (Math.random()*20);
+  while(mines.size() < NUM_MINES) {
+    int randRow = (int) (Math.random()*NUM_ROWS);
+    int randCol = (int) (Math.random()*NUM_COLS);
     if(!(mines.contains(buttons[randCol][randRow]))) {mines.add(buttons[randCol][randRow]);}
   }
 }
@@ -37,7 +37,7 @@ public void draw ()
 }
 public boolean isWon()
 {
-    if(clickedButtons >= buttons.length-mines.size()) {return true;}
+    if(clickedButtons >= NUM_ROWS*NUM_COLS-NUM_MINES) {return true;}
     return false;
 }
 public void displayLosingMessage()
@@ -103,12 +103,12 @@ public class MSButton
           clicked = true;
           displayLosingMessage();
         } else if(countMines(myRow, myCol) > 0) {
+          if(!clicked) {clickedButtons++;}
           clicked = true;
-          clickedButtons++;
           setLabel(countMines(myRow, myCol));
         } else {
+          if(!clicked) {clickedButtons++;}
           clicked = true;
-          clickedButtons++;
           if(isValid(myRow-1, myCol-1) && !buttons[myCol-1][myRow-1].clicked) {buttons[myCol-1][myRow-1].mousePressed();}
           if(isValid(myRow-1, myCol) && !buttons[myCol][myRow-1].clicked) {buttons[myCol][myRow-1].mousePressed();}
           if(isValid(myRow-1, myCol+1) && !buttons[myCol+1][myRow-1].clicked) {buttons[myCol+1][myRow-1].mousePressed();}
@@ -134,8 +134,10 @@ public class MSButton
         rect(x, y, width, height);
         fill(0);
         text(myLabel,x+width/2,y+height/2);
-        text(clickedButtons, 20, 20);
-        text(buttons.length-mines.size(), 80, 20);
+        if(myRow == 19 && myCol == 19) {
+          text(clickedButtons, 20, 20);
+          text(NUM_ROWS*NUM_COLS-NUM_MINES, 80, 20);
+        }
     }
     public void setLabel(String newLabel)
     {
