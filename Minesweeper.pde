@@ -1,5 +1,5 @@
 import de.bezier.guido.*;
-int NUM_ROWS = 20, NUM_COLS = 20, NUM_MINES = 20, clickedButtons = 0;
+int NUM_ROWS = 20, NUM_COLS = 20, NUM_MINES = 80, clickedButtons = 0;
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> mines = new ArrayList<MSButton>(); //ArrayList of just the minesweeper buttons that are mined
 
@@ -13,9 +13,9 @@ void setup ()
     
     //your code to initialize buttons goes here
     
-    buttons = new MSButton[20][20];
-    for(int c = 0; c < 20; c++) {
-      for(int r = 0; r < 20; r++) {
+    buttons = new MSButton[NUM_COLS][NUM_ROWS];
+    for(int c = 0; c < NUM_COLS; c++) {
+      for(int r = 0; r < NUM_ROWS; r++) {
         buttons[c][r] = new MSButton(r, c);
       }
     }
@@ -134,10 +134,6 @@ public class MSButton
         rect(x, y, width, height);
         fill(0);
         text(myLabel,x+width/2,y+height/2);
-        if(myRow == 19 && myCol == 19) {
-          text(clickedButtons, 20, 20);
-          text(NUM_ROWS*NUM_COLS-NUM_MINES, 80, 20);
-        }
     }
     public void setLabel(String newLabel)
     {
