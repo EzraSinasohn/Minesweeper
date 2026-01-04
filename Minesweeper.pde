@@ -23,7 +23,7 @@ void setup ()
 }
 public void setMines()
 {
-  while(mines.size() < 20) {
+  while(mines.size() < 80) {
     int randRow = (int) (Math.random()*20);
     int randCol = (int) (Math.random()*20);
     if(!(mines.contains(buttons[randCol][randRow]))) {mines.add(buttons[randCol][randRow]);}
@@ -44,7 +44,8 @@ public boolean isWon()
 public void displayLosingMessage()
 {
   for(int i = 0; i < mines.size(); i++) {
-    mines.get(i).mousePressed();
+    mines.get(i).clicked = false;
+    mines.get(i).flagged = false;
   }
 }
 public void displayWinningMessage()
