@@ -33,8 +33,9 @@ public void setMines()
 public void draw ()
 {
     background( 0 );
-    if(isWon() == true)
-        displayWinningMessage();
+    if(isWon() == true) {displayWinningMessage();}
+    text(clickedButtons, 20, 20);
+    text(buttons.length-mines.size(), 80, 20);
 }
 public boolean isWon()
 {
