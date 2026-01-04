@@ -47,10 +47,13 @@ public void displayLosingMessage()
     mines.get(i).clicked = true;
     mines.get(i).flagged = false;
   }
+  textSize(30);
+  text("YOU LOSE", width/2, height/2);
 }
 public void displayWinningMessage()
 {
-    //your code here
+  textSize(30);
+  text("YOU WIN", width/2, height/2);
 }
 public boolean isValid(int r, int c)
 {
