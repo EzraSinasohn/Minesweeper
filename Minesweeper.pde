@@ -16,7 +16,7 @@ void setup ()
     buttons = new MSButton[20][20];
     for(int c = 0; c < 20; c++) {
       for(int r = 0; r < 20; r++) {
-        buttons[c][r] = new MSButton(c, r);
+        buttons[c][r] = new MSButton(r, c);
       }
     }
     setMines();
