@@ -108,7 +108,7 @@ public class MSButton
             clicked = true;
             flagged = !flagged;
             if(!flagged) {clicked = false;}
-        } else if(mines.contains(this)) {
+        } else if(mines.contains(this) && !flagged) {
             clicked = true;
             displayLosingMessage();
         } else if(countMines(myRow, myCol) > 0) {
