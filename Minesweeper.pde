@@ -1,6 +1,6 @@
 import de.bezier.guido.*;
 int NUM_ROWS = 20, NUM_COLS = 20, NUM_MINES = 80, clickedButtons = 0, startRow, startCol;
-boolean ingame = false, lost = false;
+boolean ingame = false, lost = false, first = true;
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> mines = new ArrayList<MSButton>(); //ArrayList of just the minesweeper buttons that are mined
 
@@ -10,7 +10,7 @@ void setup ()
     textAlign(CENTER,CENTER);
     
     // make the manager
-    Interactive.make( this );
+    if(first) {Interactive.make( this );}
     
     //your code to initialize buttons goes here
     
@@ -22,6 +22,7 @@ void setup ()
     }
     clickedButtons = 0;
     mines.clear();
+    first = false;
 }
 public void setMines()
 {
@@ -184,6 +185,7 @@ public class MSButton
         text(myLabel,x+width/2,y+height/2);
         text(mines.size(), 50, 50);
         text(clickedButtons, 100, 50);
+        text(buttons.length*buttons[0].length, 150, 50);
     }
     public void setLabel(String newLabel)
     {
