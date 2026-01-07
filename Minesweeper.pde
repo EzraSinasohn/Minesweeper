@@ -118,11 +118,11 @@ public class MSButton
         } else if(mouseButton == LEFT && mines.contains(this) && !flagged) {
             clicked = true;
             displayLosingMessage();
-        } else if(mouseButton == LEFT && countMines(myRow, myCol) > 0) {
+        } else if(mouseButton == LEFT && countMines(myRow, myCol) > 0 && !flagged) {
             //if(!clicked) {clickedButtons++;}
             clicked = true;
             setLabel(countMines(myRow, myCol));
-        } else if(mouseButton == LEFT) {
+        } else if(mouseButton == LEFT && !flagged) {
             //if(!clicked) {clickedButtons++;}
             clicked = true;
             if(isValid(myRow-1, myCol-1) && !buttons[myCol-1][myRow-1].clicked) {buttons[myCol-1][myRow-1].mousePressed();}
