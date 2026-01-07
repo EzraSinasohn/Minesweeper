@@ -1,5 +1,5 @@
 import de.bezier.guido.*;
-int NUM_ROWS = 20, NUM_COLS = 20, NUM_MINES = 80, clickedButtons = 0, startRow, startCol;
+int NUM_ROWS = 20, NUM_COLS = 20, NUM_MINES = 80, clickedButtons = 0, startRow, startCol, flags = 0;
 boolean ingame = false, lost = false, first = true;
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> mines = new ArrayList<MSButton>(); //ArrayList of just the minesweeper buttons that are mined
@@ -39,10 +39,12 @@ public void draw ()
     if(isWon() == true) {displayWinningMessage();}
     fill(0, 255, 0);
     clickedButtons = 0;
+    flags = 0;
     for(int x = 0; x < buttons.length; x++) {
       for(int y = 0; y < buttons[x].length; y++) {
         if(buttons[x][y].clicked && !buttons[x][y].flagged && countMines(y, x) > 0 && !mines.contains(buttons[x][y])) {buttons[x][y].setLabel(countMines(y, x));}
         if(buttons[x][y].clicked && !buttons[x][y].flagged && !mines.contains(buttons[x][y])) {clickedButtons++;}
+        if(buttons[x][y].clicked && buttons[x][y].flagged) {flags++;}
       }
     }
 }
@@ -183,9 +185,7 @@ public class MSButton
         rect(x, y, width, height);
         fill(0);
         text(myLabel,x+width/2,y+height/2);
-        text(mines.size(), 50, 50);
-        text(clickedButtons, 100, 50);
-        text(buttons.length*buttons[0].length, 150, 50);
+        text(flags, 50, 50);
     }
     public void setLabel(String newLabel)
     {
