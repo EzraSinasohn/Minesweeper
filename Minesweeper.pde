@@ -24,6 +24,17 @@ void setup ()
     mines.clear();
     first = false;
 }
+public void reset() {
+  buttons = new MSButton[NUM_COLS][NUM_ROWS];
+  for(int c = 0; c < NUM_COLS; c++) {
+    for(int r = 0; r < NUM_ROWS; r++) {
+      buttons[c][r] = new MSButton(r, c);
+    }
+  }
+  clickedButtons = 0;
+  mines.clear();
+  first = false;
+}
 public void setMines()
 {
   while(mines.size() < NUM_MINES) {
@@ -125,7 +136,7 @@ public class MSButton
             //if(!clicked) {clickedButtons++;}
             clicked = true;
             setLabel(countMines(myRow, myCol));
-        } else if(mouseButton == LEFT && !flagged) {
+        } else if(mouseButton == LEFT && !flagged && !mines.contains(buttons[myCol][myRow])) {
             //if(!clicked) {clickedButtons++;}
             clicked = true;
             if(isValid(myRow-1, myCol-1) && !buttons[myCol-1][myRow-1].clicked) {buttons[myCol-1][myRow-1].mousePressed();}
@@ -166,7 +177,7 @@ public class MSButton
         } else {
           ingame = false;
           lost = false;
-          setup();
+          reset();
         }
       }
         
