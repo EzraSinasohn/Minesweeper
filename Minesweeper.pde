@@ -184,9 +184,11 @@ public class MSButton
     }
     public void draw () 
     {    
-        if (flagged)
+        if(mines.contains(this) && isWon())
+            fill(0, 255, 0);
+        else if (flagged)
             fill(0);
-        else if( clicked && mines.contains(this) ) 
+        else if(clicked && mines.contains(this)) 
             fill(255,0,0);
         else if(clicked)
             fill( 200 );
@@ -196,7 +198,15 @@ public class MSButton
         rect(x, y, width, height);
         fill(0);
         text(myLabel,x+width/2,y+height/2);
-        text(flags, 50, 50);
+        if(myRow == NUM_ROWS-1 && myCol == NUM_COLS-1) {
+          noStroke();
+          fill(255, 0, 0, 80);
+          ellipse(50, 50, 30, 30);
+          stroke(0);
+          fill(255);
+          //textSize(11);
+          text(flags, 51, 49);
+        }
     }
     public void setLabel(String newLabel)
     {
