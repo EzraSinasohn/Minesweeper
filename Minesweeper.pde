@@ -25,7 +25,6 @@ void setup ()
     first = false;
 }
 public void reset() {
-  buttons = new MSButton[NUM_COLS][NUM_ROWS];
   for(int c = 0; c < NUM_COLS; c++) {
     for(int r = 0; r < NUM_ROWS; r++) {
       buttons[c][r] = new MSButton(r, c);
