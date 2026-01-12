@@ -100,6 +100,19 @@ public int countMines(int row, int col)
     if(isValid(row+1, col+1) && mines.contains(buttons[col+1][row+1])) {numMines++;}
     return numMines;
 }
+public int countFlags(int row, int col)
+{
+    int numFlagged = 0;
+    if(isValid(row-1, col-1) && buttons[col-1][row-1].flagged) {numFlagged++;}
+    if(isValid(row, col-1) && buttons[col-1][row].flagged) {numFlagged++;}
+    if(isValid(row+1, col-1) && buttons[col-1][row+1].flagged) {numFlagged++;}
+    if(isValid(row-1, col) && buttons[col][row-1].flagged) {numFlagged++;}
+    if(isValid(row+1, col) && buttons[col][row+1].flagged) {numFlagged++;}
+    if(isValid(row-1, col+1) && buttons[col+1][row-1].flagged) {numFlagged++;}
+    if(isValid(row, col+1) && buttons[col+1][row].flagged) {numFlagged++;}
+    if(isValid(row+1, col+1) && buttons[col+1][row+1].flagged) {numFlagged++;}
+    return numFlagged;
+}
 public class MSButton
 {
     private int myRow, myCol;
@@ -131,7 +144,7 @@ public class MSButton
         } else if(mouseButton == LEFT && mines.contains(this) && !flagged) {
             clicked = true;
             displayLosingMessage();
-        } else if(mouseButton == LEFT && countMines(myRow, myCol) > 0 && !flagged) {
+        } else if(mouseButton == LEFT && countMines(myRow, myCol) > 0 && !flagged && !clicked) {
             //if(!clicked) {clickedButtons++;}
             clicked = true;
             setLabel(countMines(myRow, myCol));
@@ -147,6 +160,15 @@ public class MSButton
             if(isValid(myRow+1, myCol) && !buttons[myCol][myRow+1].clicked) {buttons[myCol][myRow+1].mousePressed();}
             if(isValid(myRow+1, myCol+1) && !buttons[myCol+1][myRow+1].clicked) {buttons[myCol+1][myRow+1].mousePressed();}
         }
+      } else if(clicked && countFlags(myRow, myCol) >= countMines(myRow, myCol) && !lost) {
+        if(isValid(myRow-1, myCol-1) && !buttons[myCol-1][myRow-1].clicked) {buttons[myCol-1][myRow-1].mousePressed();}
+        if(isValid(myRow-1, myCol) && !buttons[myCol][myRow-1].clicked) {buttons[myCol][myRow-1].mousePressed();}
+        if(isValid(myRow-1, myCol+1) && !buttons[myCol+1][myRow-1].clicked) {buttons[myCol+1][myRow-1].mousePressed();}
+        if(isValid(myRow, myCol-1) && !buttons[myCol-1][myRow].clicked) {buttons[myCol-1][myRow].mousePressed();}
+        if(isValid(myRow, myCol+1) && !buttons[myCol+1][myRow].clicked) {buttons[myCol+1][myRow].mousePressed();}
+        if(isValid(myRow+1, myCol-1) && !buttons[myCol-1][myRow+1].clicked) {buttons[myCol-1][myRow+1].mousePressed();}
+        if(isValid(myRow+1, myCol) && !buttons[myCol][myRow+1].clicked) {buttons[myCol][myRow+1].mousePressed();}
+        if(isValid(myRow+1, myCol+1) && !buttons[myCol+1][myRow+1].clicked) {buttons[myCol+1][myRow+1].mousePressed();}
       } else {
         if(!(clickedButtons >= NUM_ROWS*NUM_COLS-NUM_MINES || lost)) {
           if(mouseButton == LEFT) {
@@ -197,6 +219,7 @@ public class MSButton
         rect(x, y, width, height);
         fill(0);
         text(myLabel,x+width/2,y+height/2);
+        //text(countFlags(myRow, myCol), x+width/2, y);
         if(myRow == NUM_ROWS-1 && myCol == NUM_COLS-1) {
           noStroke();
           fill(255, 0, 0, 80);
