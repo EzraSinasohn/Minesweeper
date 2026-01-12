@@ -65,8 +65,8 @@ public boolean isWon()
 }
 public void displayLosingMessage()
 {
-  ingame = false;
   lost = true;
+  ingame = false;
   for(int i = 0; i < mines.size(); i++) {
     mines.get(i).clicked = true;
     mines.get(i).flagged = false;
@@ -144,31 +144,31 @@ public class MSButton
         } else if(mouseButton == LEFT && mines.contains(this) && !flagged) {
             clicked = true;
             displayLosingMessage();
-        } else if(mouseButton == LEFT && countMines(myRow, myCol) > 0 && !flagged && !clicked) {
+        } else if(mouseButton == LEFT && countMines(myRow, myCol) > 0 && !flagged && !clicked && !lost) {
             //if(!clicked) {clickedButtons++;}
             clicked = true;
             setLabel(countMines(myRow, myCol));
-        } else if(mouseButton == LEFT && !flagged && !mines.contains(buttons[myCol][myRow])) {
+        } else if(mouseButton == LEFT && !flagged && !mines.contains(buttons[myCol][myRow]) && !lost && !clicked) {
             //if(!clicked) {clickedButtons++;}
             clicked = true;
-            if(isValid(myRow-1, myCol-1) && !buttons[myCol-1][myRow-1].clicked) {buttons[myCol-1][myRow-1].mousePressed();}
-            if(isValid(myRow-1, myCol) && !buttons[myCol][myRow-1].clicked) {buttons[myCol][myRow-1].mousePressed();}
-            if(isValid(myRow-1, myCol+1) && !buttons[myCol+1][myRow-1].clicked) {buttons[myCol+1][myRow-1].mousePressed();}
-            if(isValid(myRow, myCol-1) && !buttons[myCol-1][myRow].clicked) {buttons[myCol-1][myRow].mousePressed();}
-            if(isValid(myRow, myCol+1) && !buttons[myCol+1][myRow].clicked) {buttons[myCol+1][myRow].mousePressed();}
-            if(isValid(myRow+1, myCol-1) && !buttons[myCol-1][myRow+1].clicked) {buttons[myCol-1][myRow+1].mousePressed();}
-            if(isValid(myRow+1, myCol) && !buttons[myCol][myRow+1].clicked) {buttons[myCol][myRow+1].mousePressed();}
-            if(isValid(myRow+1, myCol+1) && !buttons[myCol+1][myRow+1].clicked) {buttons[myCol+1][myRow+1].mousePressed();}
+            if(isValid(myRow-1, myCol-1) && !buttons[myCol-1][myRow-1].clicked && !lost) {buttons[myCol-1][myRow-1].mousePressed();}
+            if(isValid(myRow-1, myCol) && !buttons[myCol][myRow-1].clicked && !lost) {buttons[myCol][myRow-1].mousePressed();}
+            if(isValid(myRow-1, myCol+1) && !buttons[myCol+1][myRow-1].clicked && !lost) {buttons[myCol+1][myRow-1].mousePressed();}
+            if(isValid(myRow, myCol-1) && !buttons[myCol-1][myRow].clicked && !lost) {buttons[myCol-1][myRow].mousePressed();}
+            if(isValid(myRow, myCol+1) && !buttons[myCol+1][myRow].clicked && !lost) {buttons[myCol+1][myRow].mousePressed();}
+            if(isValid(myRow+1, myCol-1) && !buttons[myCol-1][myRow+1].clicked && !lost) {buttons[myCol-1][myRow+1].mousePressed();}
+            if(isValid(myRow+1, myCol) && !buttons[myCol][myRow+1].clicked && !lost) {buttons[myCol][myRow+1].mousePressed();}
+            if(isValid(myRow+1, myCol+1) && !buttons[myCol+1][myRow+1].clicked && !lost) {buttons[myCol+1][myRow+1].mousePressed();}
+        } else if(mouseButton == LEFT && clicked && countFlags(myRow, myCol) >= countMines(myRow, myCol) && !lost) {
+            if(isValid(myRow-1, myCol-1) && !buttons[myCol-1][myRow-1].clicked && !lost) {buttons[myCol-1][myRow-1].mousePressed();}
+            if(isValid(myRow-1, myCol) && !buttons[myCol][myRow-1].clicked && !lost) {buttons[myCol][myRow-1].mousePressed();}
+            if(isValid(myRow-1, myCol+1) && !buttons[myCol+1][myRow-1].clicked && !lost) {buttons[myCol+1][myRow-1].mousePressed();}
+            if(isValid(myRow, myCol-1) && !buttons[myCol-1][myRow].clicked && !lost) {buttons[myCol-1][myRow].mousePressed();}
+            if(isValid(myRow, myCol+1) && !buttons[myCol+1][myRow].clicked && !lost) {buttons[myCol+1][myRow].mousePressed();}
+            if(isValid(myRow+1, myCol-1) && !buttons[myCol-1][myRow+1].clicked && !lost) {buttons[myCol-1][myRow+1].mousePressed();}
+            if(isValid(myRow+1, myCol) && !buttons[myCol][myRow+1].clicked && !lost) {buttons[myCol][myRow+1].mousePressed();}
+            if(isValid(myRow+1, myCol+1) && !buttons[myCol+1][myRow+1].clicked && !lost) {buttons[myCol+1][myRow+1].mousePressed();}
         }
-      } else if(clicked && countFlags(myRow, myCol) >= countMines(myRow, myCol) && !lost) {
-        if(isValid(myRow-1, myCol-1) && !buttons[myCol-1][myRow-1].clicked) {buttons[myCol-1][myRow-1].mousePressed();}
-        if(isValid(myRow-1, myCol) && !buttons[myCol][myRow-1].clicked) {buttons[myCol][myRow-1].mousePressed();}
-        if(isValid(myRow-1, myCol+1) && !buttons[myCol+1][myRow-1].clicked) {buttons[myCol+1][myRow-1].mousePressed();}
-        if(isValid(myRow, myCol-1) && !buttons[myCol-1][myRow].clicked) {buttons[myCol-1][myRow].mousePressed();}
-        if(isValid(myRow, myCol+1) && !buttons[myCol+1][myRow].clicked) {buttons[myCol+1][myRow].mousePressed();}
-        if(isValid(myRow+1, myCol-1) && !buttons[myCol-1][myRow+1].clicked) {buttons[myCol-1][myRow+1].mousePressed();}
-        if(isValid(myRow+1, myCol) && !buttons[myCol][myRow+1].clicked) {buttons[myCol][myRow+1].mousePressed();}
-        if(isValid(myRow+1, myCol+1) && !buttons[myCol+1][myRow+1].clicked) {buttons[myCol+1][myRow+1].mousePressed();}
       } else {
         if(!(clickedButtons >= NUM_ROWS*NUM_COLS-NUM_MINES || lost)) {
           if(mouseButton == LEFT) {
