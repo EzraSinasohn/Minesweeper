@@ -1,6 +1,6 @@
 import de.bezier.guido.*;
 int NUM_ROWS = 20, NUM_COLS = 20, NUM_MINES = 80, clickedButtons = 0, startRow, startCol, flags = 0;
-boolean ingame = false, lost = false, first = true;
+boolean ingame = false, lost = false, first = true, clickable = true;
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> mines = new ArrayList<MSButton>(); //ArrayList of just the minesweeper buttons that are mined
 
@@ -159,7 +159,8 @@ public class MSButton
             if(isValid(myRow+1, myCol-1) && !buttons[myCol-1][myRow+1].clicked && !lost) {buttons[myCol-1][myRow+1].mousePressed();}
             if(isValid(myRow+1, myCol) && !buttons[myCol][myRow+1].clicked && !lost) {buttons[myCol][myRow+1].mousePressed();}
             if(isValid(myRow+1, myCol+1) && !buttons[myCol+1][myRow+1].clicked && !lost) {buttons[myCol+1][myRow+1].mousePressed();}
-        } else if(mouseButton == LEFT && clicked && countFlags(myRow, myCol) >= countMines(myRow, myCol) && !lost) {
+        } else if(mouseButton == LEFT && clicked && !flagged && countFlags(myRow, myCol) >= countMines(myRow, myCol) && !lost && clickable) {
+            clickable = false;
             if(isValid(myRow-1, myCol-1) && !buttons[myCol-1][myRow-1].clicked && !lost) {buttons[myCol-1][myRow-1].mousePressed();}
             if(isValid(myRow-1, myCol) && !buttons[myCol][myRow-1].clicked && !lost) {buttons[myCol][myRow-1].mousePressed();}
             if(isValid(myRow-1, myCol+1) && !buttons[myCol+1][myRow-1].clicked && !lost) {buttons[myCol+1][myRow-1].mousePressed();}
@@ -168,6 +169,7 @@ public class MSButton
             if(isValid(myRow+1, myCol-1) && !buttons[myCol-1][myRow+1].clicked && !lost) {buttons[myCol-1][myRow+1].mousePressed();}
             if(isValid(myRow+1, myCol) && !buttons[myCol][myRow+1].clicked && !lost) {buttons[myCol][myRow+1].mousePressed();}
             if(isValid(myRow+1, myCol+1) && !buttons[myCol+1][myRow+1].clicked && !lost) {buttons[myCol+1][myRow+1].mousePressed();}
+            clickable = true;
         }
       } else {
         if(!(clickedButtons >= NUM_ROWS*NUM_COLS-NUM_MINES || lost)) {
