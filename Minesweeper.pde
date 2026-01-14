@@ -25,15 +25,17 @@ void setup ()
     first = false;
 }
 public void reset() {
-  buttons = new MSButton[NUM_COLS][NUM_ROWS];
-  for(int c = 0; c < NUM_COLS; c++) {
-    for(int r = 0; r < NUM_ROWS; r++) {
-      buttons[c][r] = new MSButton(r, c);
-    }
-  }
   clickedButtons = 0;
   mines.clear();
   first = false;
+  for(int c = 0; c < NUM_COLS; c++) {
+    for(int r = 0; r < NUM_ROWS; r++) {
+      //buttons[c][r] = new MSButton(r, c);
+      buttons[c][r].clicked = false;
+      buttons[c][r].flagged = false;
+      buttons[c][r].setLabel("");
+    }
+  }
 }
 public void setMines()
 {
